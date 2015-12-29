@@ -87,7 +87,7 @@ class Ranking
     content = @cache.get(cache_key)
     return content if content
     warn "real get #{uri}"
-    sleep 3
+    sleep 1
     result = String.new(RestClient.get(uri, :user_agent => "blog-bookmark-ranking"))
     @cache.set(cache_key, result, 3600)
     result
