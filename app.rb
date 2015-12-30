@@ -16,14 +16,17 @@ class RankingApp < Sinatra::Base
       halt 400, 'url required'
     end
 
+    syntax = 'hatena'
+    syntax = params[:syntax] if ['hatena', 'markdown'].include?(params[:syntax])
+
     cache = Dalli::Client.new
 
-    cache_key = Digest::SHA1.hexdigest(url)
+    cache_key = Digest::SHA1.hexdigest("#{syntax}#{url}")
     content = cache.get(cache_key)
     return content if content
 
     ranking = Ranking.new(url)
-    content = ranking.report
+    content = ranking.report(syntax)
 
     cache.set(cache_key, content, 3600)
 
@@ -36,7 +39,7 @@ class Ranking
     @blog_uri = blog_uri
   end
 
-  def report
+  def report(syntax)
     entry_uris = get_entry_uris
     counts = get_counts(entry_uris)
     total = counts.values.reduce{|a, b| a + b }
@@ -46,6 +49,7 @@ class Ranking
     template.result(
       blog_uri: @blog_uri,
       items: sorted_entry_uris,
+      syntax: syntax,
       total: total,
     )
   end
