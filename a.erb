@@ -29,7 +29,7 @@
       ランキングができました．コピペしてはてなブログに投稿しよう!!<br>
       <a class="btn btn-primary" href="http://blog.hatena.ne.jp/my/edit?syntax=<%= syntax %>&title=%23%E5%B9%B4%E9%96%93%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0" target="_blank">はてなブログに投稿する</a>
     </p>
-    <textarea readonly rows="80" cols="150" onclick="select()"><% if syntax == 'hatena' %>* [<%= blog_uri %>:title]の<%= (Time.now.year - 3600*24*180).year %>年ブックマークランキングベスト<%= items.length %>(累計<%= total %>ブックマーク)
+    <textarea readonly rows="80" cols="150" onclick="select()"><% if syntax == 'hatena' %>* [<%= blog_uri %>:title]の<%= (Time.now - 3600*24*180).year %>年ブックマークランキングベスト<%= items.length %>(累計<%= total %>ブックマーク)
 |*#|*タイトル|
 <% items.each.with_index(1) { |item, index| %>
 |*<%= index %>位|[<%= item %>:title:bookmark:star]|
