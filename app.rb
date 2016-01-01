@@ -102,7 +102,7 @@ class Ranking
   end
 
   def target_year
-    Time.now.year
+    (Time.now - 3600*24*180).year
   end
 end
 
