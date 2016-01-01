@@ -65,7 +65,7 @@ class Ranking
         last_mod = item.at('lastmod').content
         next unless uri.match(/\/entry\//)
 
-        if last_mod[0..3].to_i != target_year
+        if last_mod[0..3].to_i < target_year
           return uris
         end
 
